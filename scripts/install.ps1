@@ -76,7 +76,7 @@ function Install-CursorFreeVIP {
         Write-Styled "Found latest version: $version" -Color $Theme.Success -Prefix "Version"
         
         # Find corresponding resources
-        $asset = $releaseInfo.Assets | Where-Object { $_.name -eq "CursorFreeVIP_${version}_windows.exe" }
+        $asset = $releaseInfo.Assets | Where-Object { $_.name -eq "CursorFreeVIP_${version}_windows.zip" }
         if (!$asset) {
             Write-Styled "File not found: CursorFreeVIP_${version}_windows.exe" -Color $Theme.Error -Prefix "Error"
             Write-Styled "Available files:" -Color $Theme.Warning -Prefix "Info"
