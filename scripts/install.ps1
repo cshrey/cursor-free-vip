@@ -105,7 +105,7 @@ function Install-CursorFreeVIP {
         Write-Styled "Already extracted" -Color $Theme.Success -Prefix "Found"
     }
 
-    $exe = Get-ChildItem $extractPath -Filter *.exe -Recurse | Select-Object -First 1
+   $exe = Get-ChildItem $extractPath -Recurse | Where-Object { $_.Name -eq "CursorFreeVIP.exe" }
 
     if ($exe) {
         Write-Styled "Launching EXE..." -Color $Theme.Primary -Prefix "Launch"
@@ -191,7 +191,8 @@ function Install-CursorFreeVIP {
         # Run program
         $extractPath = Join-Path $DownloadsPath "CursorFreeVIP_$version"
 Expand-Archive -Path $downloadPath -DestinationPath $extractPath -Force
-$exe = Get-ChildItem $extractPath -Filter *.exe -Recurse | Select-Object -First 1
+$exe = Get-ChildItem $extractPath -Recurse | Where-Object { $_.Name -eq "CursorFreeVIP.exe" }
+
 Start-Process $exe.FullName
 
     }
