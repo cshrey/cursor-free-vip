@@ -91,13 +91,7 @@ function Install-CursorFreeVIP {
         $downloadPath = Join-Path $DownloadsPath "CursorFreeVIP_${version}_windows.zip"
         
         if (Test-Path $downloadPath) {
-            Write-Styled "Found existing installation file" -Color $Theme.Success -Prefix "Found"
-            Write-Styled "Location: $downloadPath" -Color $Theme.Info -Prefix "Location"
-            
-            # Check if running with administrator privileges
-            $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-            
-            if (Test-Path $downloadPath) {
+
     Write-Styled "Found existing ZIP file" -Color $Theme.Success -Prefix "Found"
     Write-Styled "Location: $downloadPath" -Color $Theme.Info -Prefix "Location"
 
@@ -107,18 +101,23 @@ function Install-CursorFreeVIP {
         Write-Styled "Extracting ZIP..." -Color $Theme.Primary -Prefix "Extract"
         Expand-Archive -Path $downloadPath -DestinationPath $extractPath -Force
     }
+    else {
+        Write-Styled "Already extracted" -Color $Theme.Success -Prefix "Found"
+    }
 
     $exe = Get-ChildItem $extractPath -Filter *.exe -Recurse | Select-Object -First 1
 
     if ($exe) {
         Write-Styled "Launching EXE..." -Color $Theme.Primary -Prefix "Launch"
         Start-Process $exe.FullName
-    } else {
+    }
+    else {
         Write-Styled "No EXE found inside ZIP" -Color $Theme.Error -Prefix "Error"
     }
 
     return
 }
+
         
         Write-Styled "No existing installation file found, starting download..." -Color $Theme.Primary -Prefix "Download"
         
